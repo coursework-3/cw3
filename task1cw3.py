@@ -152,7 +152,7 @@ def find_next_empty(puzzle):
     return None,None
     
     
-def is_valid(puzzle,guess,row,col):
+def is_valid(puzzle, guess, row, col):
     
     # checks whether the guess at the row/col of puzzle is valid guess
     #return True if is valid else False
@@ -183,7 +183,7 @@ def is_valid(puzzle,guess,row,col):
     return True   
     
     
-def recursive_solve(puzzle,r,c):
+def recursive_solve(puzzle, r, c, max_hint=-1, explain=False, output=sys.stdout):
     
     #puzzle is the list of lists where each innner list is a row in the puzzle
     # return whether solutin exists
@@ -202,23 +202,24 @@ def recursive_solve(puzzle,r,c):
     for guess in range(1,len(puzzle)+1):
         
         #step3: check if this is valid guess
-        if is_valid(puzzle,guess,row,col):
+        if is_valid(puzzle,guess,row,col,r,c):
             
             #step3.1: if this is valid then place the guess on the puzzle
-            
+            set_and_explain(puzzle, row, col, guess, max_hint, explain, output)
             puzzle[row][col]=guess
             
             #now recurse using this puzzle
             #step4: recursively call the function
-            if recursive_solve(puzzle,r,c):
-                return True
+            ans = recursive_solve(puzzle, r, c, max_hint, explain, output)
+            if ans:
+                return ans
                 
         #step5: if not valid then we need to backtrack and try new number
-        puzzle[row][col]=0 #reset the guess
+        set_and_explain(puzzle, row, col, 0, explain=explain, output=output)
         
         
     #step6: if none of the numbers that work then it is not solvable
-    return False
+    return None
 
 
 ######################################################################################################
