@@ -303,25 +303,15 @@ def set_and_explain(grid, row, col, value, max_hint=-1, explain=False, output=sy
             output.close()
             sys.exit()
 
+def solve(grid, n_rows, n_cols):
 
-def solve(grid, n_rows, n_cols, max_hint=-1, explain=False, output=sys.stdout):
-    '''
-    Solve function for Sudoku coursework.
-    Comment out one of the lines below to either use the recursive solver
-    or alternative
-
-    grid: the grid
-    n_rows: the row number
-    n_cols: the column number
-    max_hint: max of the hint
-    explain: if need to provide instructions
-    output: the output stream
-    '''
-    global current_hint
-    current_hint = 0
-    # return recursive_solve_alternative(grid, n_rows,
-    #     n_cols,max_hint,explain,output)
-    return recursive_solve(grid, n_rows, n_cols, max_hint, explain, output)
+	'''
+	Solve function for Sudoku coursework.
+	Comment out one of the lines below to either use the random or recursive solver
+	'''
+	
+	#return random_solve(grid, n_rows, n_cols)
+	return recursive_solve(grid, n_rows, n_cols)
 
 def run_profile():
       # set and print the plot
