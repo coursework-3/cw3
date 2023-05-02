@@ -314,6 +314,35 @@ def solve(grid, n_rows, n_cols):
 	return recursive_solve(grid, n_rows, n_cols)
 
 def run_profile():
+    used_times = dict()
+    used_times["recursive"] = []
+    used_times["alternative"] = []
+    grids2 = copy.deepcopy(grids)
+
+    # calculate the recursive solver running time
+    for (i, (grid, n_rows, n_cols)) in enumerate(grids):
+        # print("Solving grid: %d" % (i+1))
+        start_time = time.time()
+        solution = recursive_solve(grid, n_rows, n_cols)
+        elapsed_time = time.time() - start_time
+        used_times["recursive"].append(elapsed_time*1000)
+        # print("Solved in: %f seconds" % elapsed_time)
+        # show_solution(solution)
+        if not check_solution(solution, n_rows, n_cols):
+            print("grid %d incorrect" % (i+1))
+
+    # calculate the alternative solver running time
+    for (i, (grid, n_rows, n_cols)) in enumerate(grids2):
+        # print("Solving grid: %d" % (i+1))
+        start_time = time.time()
+        solution = alternative_solve(grid, n_rows, n_cols)
+        elapsed_time = time.time() - start_time
+        used_times["alternative"].append(elapsed_time*1000)
+        # print("Solved in: %f seconds" % elapsed_time)
+        # show_solution(solution)
+        if not check_solution(solution, n_rows, n_cols):
+            print("grid %d incorrect" % (i+1))
+	
       # set and print the plot
     plt.plot(used_times["recursive"], label="recursive solver")
     plt.plot(used_times["alternative"], label="alternative solver")
