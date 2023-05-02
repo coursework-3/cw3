@@ -356,3 +356,17 @@ def run_profile():
     plt.show()
 
     print("profile complete")
+		
+	
+def main():
+    # add the arguments parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-file", dest="file", nargs=2)
+    parser.add_argument("-hint", dest="hint", type=int)
+    parser.add_argument("-explain", dest="explain",
+                        action="store_true", default=False)
+    parser.add_argument("-profile", dest="profile",
+                        action="store_true", default=False)
+	
+if __name__ == "__main__":
+    main()
